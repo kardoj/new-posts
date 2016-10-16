@@ -1,3 +1,6 @@
+/*
+ * Kardo Jõeleht, 2016
+ */
 package xyz.kardo;
 
 import static org.junit.Assert.*;

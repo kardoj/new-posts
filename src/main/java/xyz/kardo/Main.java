@@ -18,9 +18,6 @@ public class Main implements Runnable {
 						 "&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=25&area_max=&floor_min=&floor_max=&keyword=kalamaja";
 	private Document root;
 	private String postContainerSelector = ".object-type-apartment";
-	private String dataFile; 
-	private String dataFolder;
-	private String dataPath;
 	private long interval = 60 * 1000 * 5;
 	private boolean running = true;
 	private boolean sendMails;
@@ -29,11 +26,8 @@ public class Main implements Runnable {
 	
 	public Main(boolean sendMails, String dataFolder, String dataFile) {
 		this.sendMails = sendMails;
-		this.dataFolder = dataFolder;
-		this.dataFile = dataFile;
-		this.dataPath = this.dataFolder + "/" + this.dataFile;
 		mailer = new Mailer("kardoj@gmail.com");
-		fileIO = new FileIO(this.dataPath);
+		fileIO = new FileIO(dataFolder + "/" + dataFile);
 	}
 	
 	@Override
