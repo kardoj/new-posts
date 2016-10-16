@@ -26,7 +26,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class KV implements Runnable {
+public class Main implements Runnable {
 	private String url = "http://kinnisvaraportaal-kv-ee.postimees.ee/" + 
 						 "?act=search.simple&company_id=&page=1&orderby=pawl&page_size=50" + 
 						 "&deal_type=2&dt_select=2&county=1&parish=421&price_min=100&price_max=350" + 
@@ -34,11 +34,14 @@ public class KV implements Runnable {
 	private Document root;
 	private String postContainerSelector = ".object-type-apartment";
 	private String dataFile = "kv.txt";
-	private String email = "kardoj@gmail.com";
 	private long interval = 60 * 1000 * 5;
 	private boolean running = true;
+	private boolean sendMails = false;
+	private Mailer mailer;
 	
-	public KV() {}
+	public Main() {
+		mailer = new Mailer("kardoj@gmail.com");
+	}
 	
 	@Override
 	public void run(){
@@ -48,59 +51,11 @@ public class KV implements Runnable {
 			ArrayList<String> allLinks = getLinks(posts);
 			ArrayList<String> newLinks = getNewLinks(allLinks);
 			writeLinksToFile(newLinks);
-			sendEmails(newLinks);
+			if (sendMails) mailer.sendEmails(newLinks);
 			
 			try { Thread.sleep(interval); } 
 			catch (InterruptedException e) { e.printStackTrace(); }
 		}
-	}
-	
-	private void sendEmails(ArrayList<String> newLinks) {
-		for (String link: newLinks) {
-			sendLinkToEmail(link);
-		}
-	}
-	
-	private void sendLinkToEmail(String link) {
-		// Recipient's email ID needs to be mentioned.
-		String to = email;
-		
-		// Sender's email ID needs to be mentioned
-		String from = "KV-mailer@kardo.xyz";
-		
-		// Assuming you are sending email from localhost
-		String host = "localhost";
-		
-		// Get system properties
-		Properties properties = System.getProperties();
-		
-		// Setup mail server
-		properties.setProperty("mail.smtp.host", host);
-		
-		// Get the default Session object.
-		Session session = Session.getDefaultInstance(properties);
-
-		try {
-	        // Create a default MimeMessage object.
-	        MimeMessage message = new MimeMessage(session);
-	
-	        // Set From: header field of the header.
-	        message.setFrom(new InternetAddress(from));
-	
-	        // Set To: header field of the header.
-	        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-	
-	        // Set Subject: header field
-	        message.setSubject("Uus üüripind Kalamajas");
-	
-	        // Now set the actual message
-	        message.setText(link);
-	
-	        // Send message
-	        Transport.send(message);
-		}catch (MessagingException mex) {
-			mex.printStackTrace();
-		}		
 	}
 	
 	private void writeLinksToFile(ArrayList<String> newLinks) {
@@ -160,6 +115,6 @@ public class KV implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		new KV().run();
+		new Main().run();
 	}
 }
