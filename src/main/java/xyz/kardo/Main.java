@@ -22,14 +22,12 @@ public class Main implements Runnable {
 	private boolean running = true;
 	private boolean sendMails;
 	private Mailer mailer;
-	private FileIO fileIO;
 	private ResultFilter resultFilter;
 	
 	public Main(boolean sendMails, String dataFolder, String dataFile) {
 		this.sendMails = sendMails;
 		mailer = new Mailer("kardoj@gmail.com");
-		fileIO = new FileIO(dataFolder + "/" + dataFile);
-		resultFilter = new ResultFilter(fileIO);
+		resultFilter = new ResultFilter(dataFolder + "/" + dataFile);
 	}
 	
 	@Override

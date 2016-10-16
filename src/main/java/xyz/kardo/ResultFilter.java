@@ -9,8 +9,8 @@ import java.util.List;
 public class ResultFilter {
 	private FileIO fileIO;
 	
-	public ResultFilter(FileIO fileIO) {
-		this.fileIO = fileIO;
+	public ResultFilter(String dataPath) {
+		this.fileIO = new FileIO(dataPath);
 	}
 	
 	public ArrayList<String> getNewResults(ArrayList<String> allResults) {
