@@ -10,7 +10,7 @@ Veebiserver java võimalusega
 Mailiserver (nt. Postfix)
 
 ## TODO, mõtted
-Turvaline faili kirjutamine
-Konfiguratsioonifail
-Mailer eraldi klassi
-Faili lugemine ja kirjutamine eraldi klassi, kuna seda tehakse korduvalt
+* Turvaline faili kirjutamine
+* Konfiguratsioonifail
+* Mailer eraldi klassi
+* Faili lugemine ja kirjutamine eraldi klassi, kuna seda tehakse korduvalt
