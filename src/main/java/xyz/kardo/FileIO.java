@@ -45,4 +45,13 @@ public class FileIO {
 		
 		return lines;
 	}
+	
+	public String getFileAsString() {
+		StringBuilder sb = new StringBuilder();
+		List<String> lines = getAllLines();
+		for (String line: lines) {
+			sb.append(line);
+		}
+		return sb.toString();
+	}
 }

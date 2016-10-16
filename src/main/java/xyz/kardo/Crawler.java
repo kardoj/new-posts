@@ -1,3 +1,6 @@
+/*
+ * Kardo Jõeleht, 2016
+ */
 package xyz.kardo;
 
 import java.io.IOException;
@@ -23,7 +26,7 @@ public class Crawler {
 	public ArrayList<String> crawl() {
 		root = getUrl(url);
 		Elements posts = getPosts(root, postContainerSelector);
-		return getLinks(posts);
+		return getResults(posts);
 	}
 	
 	private Document getUrl(String url) {
@@ -40,13 +43,13 @@ public class Crawler {
 		return doc.select(selector);
 	}
 	
-	private ArrayList<String> getLinks(Elements posts) {
-		ArrayList<String> links = new ArrayList<String>();
+	private ArrayList<String> getResults(Elements posts) {
+		ArrayList<String> results = new ArrayList<String>();
 		String selector = ".object-title-a";
 		for (Element post: posts) {
-			links.add(trimSearchKey(post.select(selector).attr("href").toString()));
+			results.add(trimSearchKey(post.select(selector).attr("href").toString()));
 		}
-		return links;
+		return results;
 	}
 	
 	// KV.ee adds a random search key which needs to be cut in order to save and compare links
