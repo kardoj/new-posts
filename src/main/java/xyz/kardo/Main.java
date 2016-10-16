@@ -3,15 +3,8 @@
  */
 package xyz.kardo;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,17 +18,22 @@ public class Main implements Runnable {
 						 "&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=25&area_max=&floor_min=&floor_max=&keyword=kalamaja";
 	private Document root;
 	private String postContainerSelector = ".object-type-apartment";
-	private String dataFile = "kv.txt";
-	private String dataFolder = "data";
-	private String dataPath = dataFolder + "/" + dataFile;
+	private String dataFile; 
+	private String dataFolder;
+	private String dataPath;
 	private long interval = 60 * 1000 * 5;
 	private boolean running = true;
 	private boolean sendMails;
 	private Mailer mailer;
+	private FileIO fileIO;
 	
-	public Main(boolean sendMails) {
+	public Main(boolean sendMails, String dataFolder, String dataFile) {
 		this.sendMails = sendMails;
+		this.dataFolder = dataFolder;
+		this.dataFile = dataFile;
+		this.dataPath = this.dataFolder + "/" + this.dataFile;
 		mailer = new Mailer("kardoj@gmail.com");
+		fileIO = new FileIO(this.dataPath);
 	}
 	
 	@Override
@@ -44,8 +42,8 @@ public class Main implements Runnable {
 			root = getUrl(url);
 			Elements posts = getPosts(root, postContainerSelector);
 			ArrayList<String> allLinks = getLinks(posts);
-			ArrayList<String> newLinks = getNewLinks(allLinks);
-			writeLinksToFile(newLinks);
+			ArrayList<String> newLinks = fileIO.getNewLinks(allLinks);
+			fileIO.writeLinksToFile(newLinks);
 			if (sendMails) mailer.sendEmails(newLinks);
 			
 			try { Thread.sleep(interval); } 
@@ -53,37 +51,9 @@ public class Main implements Runnable {
 		}
 	}
 	
-	private void writeLinksToFile(ArrayList<String> newLinks) {
-		try(FileWriter fw = new FileWriter(dataPath, true);
-			    BufferedWriter bw = new BufferedWriter(fw);
-			    PrintWriter out = new PrintWriter(bw))
-			{
-			    for (String link: newLinks) {
-			    	out.println(link);
-			    }
-			    out.close();
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
-	}
-	
 	// KV.ee adds a random search key which needs to be cut in order to save and compare links
 	private String trimSearchKey(String link) {
 		return link.replaceFirst("\\?nr=.*", "");
-	}
-	
-	private ArrayList<String> getNewLinks(ArrayList<String> allLinks) {
-		ArrayList<String> newLinks = new ArrayList<String>();
-		
-		try {
-			List<String> lines = Files.readAllLines(Paths.get(dataPath), StandardCharsets.UTF_8);
-			for (String link: allLinks) {
-				if (!lines.contains(link)) newLinks.add(link);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return newLinks;
 	}
 	
 	private ArrayList<String> getLinks(Elements posts) {
@@ -110,6 +80,8 @@ public class Main implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		new Main(true).run();
+		String dataFolder = "data";
+		String dataFile = "kv.txt";
+		new Main(true, dataFolder, dataFile).run();
 	}
 }
