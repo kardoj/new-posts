@@ -21,4 +21,10 @@ public class ResultFilter {
 		}		
 		return newResults;
 	}
+	
+	public ArrayList<String> filter(ArrayList<String> allResults) {
+		ArrayList<String> newResults = getNewResults(allResults);
+		fileIO.appendLines(newResults);
+		return newResults;
+	}
 }

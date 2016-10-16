@@ -38,8 +38,7 @@ public class Main implements Runnable {
 			root = getUrl(url);
 			Elements posts = getPosts(root, postContainerSelector);
 			ArrayList<String> allLinks = getLinks(posts);
-			ArrayList<String> newLinks = resultFilter.getNewResults(allLinks);
-			fileIO.writeLinksToFile(newLinks);
+			ArrayList<String> newLinks = resultFilter.filter(allLinks);
 			if (sendMails) mailer.sendEmails(newLinks);
 			
 			try { Thread.sleep(interval); } 

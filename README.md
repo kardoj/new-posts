@@ -9,4 +9,4 @@ saadaks need e-mailiga soovitud aadressile.
 ## TODO, mõtted
 * Turvaline faili kirjutamine
 * Konfiguratsioonifail
-* Faili lugemine ja kirjutamine eraldi klassi, kuna seda tehakse korduvalt
+* Äkki saaks mitte iga kord faili lugeda vaid hoida vanu linke mälus ja iga kord terve fail uuesti kirjutada?

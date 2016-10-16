@@ -20,21 +20,7 @@ public class FileIO {
 		this.dataPath = dataPath;
 	}
 	
-	public void writeLinksToFile(ArrayList<String> newLinks) {
-		try(FileWriter fw = new FileWriter(dataPath, true);
-			    BufferedWriter bw = new BufferedWriter(fw);
-			    PrintWriter out = new PrintWriter(bw))
-			{
-			    for (String link: newLinks) {
-			    	out.println(link);
-			    }
-			    out.close();
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
-	}
-	
-	public void appendLinesToFile(ArrayList<String> lines) {
+	public void appendLines(ArrayList<String> lines) {
 		try(FileWriter fw = new FileWriter(dataPath, true);
 			    BufferedWriter bw = new BufferedWriter(fw);
 			    PrintWriter out = new PrintWriter(bw))
