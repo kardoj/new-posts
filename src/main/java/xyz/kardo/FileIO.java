@@ -34,17 +34,29 @@ public class FileIO {
 			}
 	}
 	
-	public ArrayList<String> getNewLinks(ArrayList<String> allLinks) {
-		ArrayList<String> newLinks = new ArrayList<String>();
+	public void appendLinesToFile(ArrayList<String> lines) {
+		try(FileWriter fw = new FileWriter(dataPath, true);
+			    BufferedWriter bw = new BufferedWriter(fw);
+			    PrintWriter out = new PrintWriter(bw))
+			{
+			    for (String line: lines) {
+			    	out.println(line);
+			    }
+			    out.close();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}		
+	}
+	
+	public List<String> getAllLines() {
+		List<String> lines = new ArrayList<String>();
 		
 		try {
-			List<String> lines = Files.readAllLines(Paths.get(dataPath), StandardCharsets.UTF_8);
-			for (String link: allLinks) {
-				if (!lines.contains(link)) newLinks.add(link);
-			}
+			lines = Files.readAllLines(Paths.get(dataPath), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		return newLinks;
+		}		
+		
+		return lines;
 	}
 }

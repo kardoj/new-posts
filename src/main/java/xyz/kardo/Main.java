@@ -23,11 +23,13 @@ public class Main implements Runnable {
 	private boolean sendMails;
 	private Mailer mailer;
 	private FileIO fileIO;
+	private ResultFilter resultFilter;
 	
 	public Main(boolean sendMails, String dataFolder, String dataFile) {
 		this.sendMails = sendMails;
 		mailer = new Mailer("kardoj@gmail.com");
 		fileIO = new FileIO(dataFolder + "/" + dataFile);
+		resultFilter = new ResultFilter(fileIO);
 	}
 	
 	@Override
@@ -36,7 +38,7 @@ public class Main implements Runnable {
 			root = getUrl(url);
 			Elements posts = getPosts(root, postContainerSelector);
 			ArrayList<String> allLinks = getLinks(posts);
-			ArrayList<String> newLinks = fileIO.getNewLinks(allLinks);
+			ArrayList<String> newLinks = resultFilter.getNewResults(allLinks);
 			fileIO.writeLinksToFile(newLinks);
 			if (sendMails) mailer.sendEmails(newLinks);
 			
