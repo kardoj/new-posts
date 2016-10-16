@@ -12,14 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,10 +28,11 @@ public class Main implements Runnable {
 	private String dataFile = "kv.txt";
 	private long interval = 60 * 1000 * 5;
 	private boolean running = true;
-	private boolean sendMails = false;
+	private boolean sendMails;
 	private Mailer mailer;
 	
-	public Main() {
+	public Main(boolean sendMails) {
+		this.sendMails = sendMails;
 		mailer = new Mailer("kardoj@gmail.com");
 	}
 	
@@ -115,6 +108,6 @@ public class Main implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		new Main().run();
+		new Main(true).run();
 	}
 }
