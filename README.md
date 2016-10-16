@@ -2,14 +2,14 @@
 Eesm‰rk oli luua rakendus, mis k‰iks m‰‰ratud intervalliga veebilehel, otsiks sealt uued postitused ja
 saadaks need e-mailiga soovitud aadressile.
 
-##### Olemasolev funktsionaalsus
+## Olemasolev funktsionaalsus
 Hetkel toimib konkreetselt KV.ee lehel kindla aadressi peal.
 
-##### Nıuded
+## Nıuded
 Veebiserver java vıimalusega
 Mailiserver (nt. Postfix)
 
-#### TODO, mıtted
+## TODO, mıtted
 Turvaline faili kirjutamine
 Konfiguratsioonifail
 Mailer eraldi klassi
