@@ -26,6 +26,8 @@ public class Main implements Runnable {
 	private Document root;
 	private String postContainerSelector = ".object-type-apartment";
 	private String dataFile = "kv.txt";
+	private String dataFolder = "data";
+	private String dataPath = dataFolder + "/" + dataFile;
 	private long interval = 60 * 1000 * 5;
 	private boolean running = true;
 	private boolean sendMails;
@@ -52,7 +54,7 @@ public class Main implements Runnable {
 	}
 	
 	private void writeLinksToFile(ArrayList<String> newLinks) {
-		try(FileWriter fw = new FileWriter(dataFile, true);
+		try(FileWriter fw = new FileWriter(dataPath, true);
 			    BufferedWriter bw = new BufferedWriter(fw);
 			    PrintWriter out = new PrintWriter(bw))
 			{
@@ -74,7 +76,7 @@ public class Main implements Runnable {
 		ArrayList<String> newLinks = new ArrayList<String>();
 		
 		try {
-			List<String> lines = Files.readAllLines(Paths.get(dataFile), StandardCharsets.UTF_8);
+			List<String> lines = Files.readAllLines(Paths.get(dataPath), StandardCharsets.UTF_8);
 			for (String link: allLinks) {
 				if (!lines.contains(link)) newLinks.add(link);
 			}
