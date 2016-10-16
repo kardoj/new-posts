@@ -1,1 +1,7 @@
-{"title": "KV.ee"}
+{
+	"subject": "Uus üüripind Kalamajas",
+	"interval": 300000,
+	"sendMails": true,
+	"to": "kardoj@gmail.com",
+	"from": "KV-mailer@kardo.xyz"
+}

@@ -4,6 +4,8 @@
 package xyz.kardo;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 public class FileIO {
 	private String dataPath;
@@ -46,12 +51,16 @@ public class FileIO {
 		return lines;
 	}
 	
-	public String getFileAsString() {
-		StringBuilder sb = new StringBuilder();
-		List<String> lines = getAllLines();
-		for (String line: lines) {
-			sb.append(line);
+	public static Config readConfig(String configPath) {
+		JsonReader reader;
+		Config config = null;
+		try {
+			reader = new JsonReader(new FileReader(configPath));
+			Gson gson = new Gson();
+			config = gson.fromJson(reader, Config.class);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-		return sb.toString();
+		return config;
 	}
 }

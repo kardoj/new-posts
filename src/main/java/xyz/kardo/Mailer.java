@@ -14,10 +14,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Mailer {
-	private String email;
+	private String to;
+	private String from;
+	private String subject;
 	
-	public Mailer(String email) {
-		this.email = email;
+	public Mailer(Config CONFIG) {
+		this.to = CONFIG.to;
+		this.from = CONFIG.from;
+		this.subject = CONFIG.subject;
 	}	
 	
 	public void sendEmails(ArrayList<String> newLinks) {
@@ -28,10 +32,10 @@ public class Mailer {
 	
 	private void sendLinkToEmail(String link) {
 		// Recipient's email ID needs to be mentioned.
-		String to = email;
+		String to = this.to;
 		
 		// Sender's email ID needs to be mentioned
-		String from = "KV-mailer@kardo.xyz";
+		String from = this.from;
 		
 		// Assuming you are sending email from localhost
 		String host = "localhost";
@@ -56,7 +60,7 @@ public class Mailer {
 	        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 	
 	        // Set Subject: header field
-	        message.setSubject("Uus üüripind Kalamajas");
+	        message.setSubject(this.subject);
 	
 	        // Now set the actual message
 	        message.setText(link);

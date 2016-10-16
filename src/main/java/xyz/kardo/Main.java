@@ -6,18 +6,15 @@ package xyz.kardo;
 import java.util.ArrayList;
 
 public class Main implements Runnable {
-	private long interval = 60 * 1000 * 5;
+	public final Config CONFIG;
 	private boolean running = true;
-	private boolean sendMails;
-	private Config config;
 	private Mailer mailer;
 	private ResultFilter resultFilter;
 	private Crawler crawler;
 	
-	public Main(boolean sendMails, String dataPath, String configPath) {
-		config = new ConfigReader(configPath).read();
-		this.sendMails = sendMails;
-		mailer = new Mailer("kardoj@gmail.com");
+	public Main(String dataPath, String configPath) {
+		CONFIG = FileIO.readConfig(configPath);
+		mailer = new Mailer(CONFIG);
 		resultFilter = new ResultFilter(dataPath);
 		crawler = new Crawler();
 	}
@@ -26,8 +23,8 @@ public class Main implements Runnable {
 	public void run(){
 		while (running) {
 			ArrayList<String> newLinks = resultFilter.filter(crawler.crawl());
-			if (sendMails) mailer.sendEmails(newLinks);			
-			try { Thread.sleep(interval); }
+			if (CONFIG.sendMails) mailer.sendEmails(newLinks);			
+			try { Thread.sleep(CONFIG.interval); }
 			catch (InterruptedException e) { e.printStackTrace(); }
 		}
 	}
@@ -35,6 +32,6 @@ public class Main implements Runnable {
 	public static void main(String[] args) {
 		String dataPath = "data/kv.txt";
 		String configPath = "config.json";
-		new Main(false, dataPath, configPath).run();
+		new Main(dataPath, configPath).run();
 	}
 }
