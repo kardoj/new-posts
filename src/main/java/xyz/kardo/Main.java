@@ -15,7 +15,7 @@ public class Main implements Runnable {
 	private Crawler crawler;
 	
 	public Main(boolean sendMails, String dataPath, String configPath) {
-		config = new Config(configPath);
+		config = new ConfigReader(configPath).read();
 		this.sendMails = sendMails;
 		mailer = new Mailer("kardoj@gmail.com");
 		resultFilter = new ResultFilter(dataPath);
