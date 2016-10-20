@@ -10,3 +10,4 @@ saadaks need e-mailiga soovitud aadressile.
 * Turvaline faili kirjutamine
 * Äkki saaks mitte iga kord faili lugeda vaid hoida vanu linke mälus ja iga kord terve fail uuesti kirjutada?
 * Mitu konfiguratsioonisektorit ja mitu Threadi erinevate lehtede jaoks
+* Andmefaili loomine, kui seda pole veel olemas

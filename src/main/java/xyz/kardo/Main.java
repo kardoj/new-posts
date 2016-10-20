@@ -12,11 +12,11 @@ public class Main implements Runnable {
 	private ResultFilter resultFilter;
 	private Crawler crawler;
 	
-	public Main(String dataPath, String configPath) {
+	public Main(String configPath) {
 		CONFIG = FileIO.readConfig(configPath);
 		mailer = new Mailer(CONFIG);
-		resultFilter = new ResultFilter(dataPath);
-		crawler = new Crawler();
+		resultFilter = new ResultFilter(CONFIG.dataFile);
+		crawler = new Crawler(CONFIG);
 	}
 	
 	@Override
@@ -30,8 +30,7 @@ public class Main implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		String dataPath = "data/kv.txt";
 		String configPath = "config.json";
-		new Main(dataPath, configPath).run();
+		new Main(configPath).run();
 	}
 }

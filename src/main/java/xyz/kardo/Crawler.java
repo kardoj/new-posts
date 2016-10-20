@@ -12,19 +12,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Crawler {
-	private String url = "http://kinnisvaraportaal-kv-ee.postimees.ee/" + 
-			 "?act=search.simple&company_id=&page=1&orderby=pawl&page_size=50" + 
-			 "&deal_type=2&dt_select=2&county=1&parish=421&price_min=100&price_max=350" + 
-			 "&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=25&area_max=&floor_min=&floor_max=&keyword=kalamaja";
-	private Document root;
-	private String postContainerSelector = ".object-type-apartment";
+	private String url;
+	private String postContainerSelector;
+	private String subSelector; // What will be written and sent to the specified e-mail
 	
-	public Crawler() {
-		
+	public Crawler(Config CONFIG) {
+		this.url = CONFIG.url;
+		this.postContainerSelector = CONFIG.selector;
+		this.subSelector = CONFIG.subSelector;
 	}
 	
 	public ArrayList<String> crawl() {
-		root = getUrl(url);
+		Document root = getUrl(url);
 		Elements posts = getPosts(root, postContainerSelector);
 		return getResults(posts);
 	}
@@ -45,9 +44,8 @@ public class Crawler {
 	
 	private ArrayList<String> getResults(Elements posts) {
 		ArrayList<String> results = new ArrayList<String>();
-		String selector = ".object-title-a";
 		for (Element post: posts) {
-			results.add(trimSearchKey(post.select(selector).attr("href").toString()));
+			results.add(trimSearchKey(post.select(subSelector).attr("href").toString()));
 		}
 		return results;
 	}

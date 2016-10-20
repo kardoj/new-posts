@@ -19,10 +19,11 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 public class FileIO {
+	private String dataFolder = "data";
 	private String dataPath;
 	
-	public FileIO(String dataPath) {
-		this.dataPath = dataPath;
+	public FileIO(String dataFile) {
+		this.dataPath = dataFolder + "/" + dataFile;
 	}
 	
 	public void appendLines(ArrayList<String> lines) {

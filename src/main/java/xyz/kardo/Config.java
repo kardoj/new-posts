@@ -10,4 +10,8 @@ public class Config {
 	public String to;
 	public String from;
 	public String subject;
+	public String url;
+	public String selector;
+	public String subSelector;
+	public String dataFile;
 }
