@@ -5,7 +5,7 @@ saadaks need e-mailiga soovitud aadressile.
 ## Nõuded
 * Veebiserver java võimalusega
 * Mailiserver (nt. Postfix)
-* data kaust koos kõikide *site'ides* mainitud failidega ja kirjutamisõigused neile
+* data kaust koos kõikide *configs* failis mainitud failinimedega ja kirjutamisõigused neile
 
 ## TODO, mõtted
 * Turvaline faili kirjutamine
