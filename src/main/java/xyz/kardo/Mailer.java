@@ -30,6 +30,7 @@ public class Mailer {
 		}
 	}
 	
+	// https://www.tutorialspoint.com/java/java_sending_email.htm
 	private void sendLinkToEmail(String link) {
 		// Recipient's email ID needs to be mentioned.
 		String to = this.to;
