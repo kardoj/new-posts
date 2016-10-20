@@ -1,0 +1,32 @@
+[
+	{
+		"url": "http://kinnisvaraportaal-kv-ee.postimees.ee/?act=search.simple&company_id=&page=1&orderby=pawl&page_size=50&deal_type=2&dt_select=2&county=1&parish=421&price_min=100&price_max=350&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=20&area_max=&floor_min=&floor_max=&keyword=kalamaja",
+		"selector": ".object-type-apartment",
+		"subSelector": ".object-title-a",
+		"sendMails": false,
+		"to": "kardoj@gmail.com",
+		"from": "KV-mailer@kardo.xyz",
+		"subject": "Uus üüripind Kalamajas",
+		"dataFile": "kv.txt"
+	},
+	{
+		"url": "http://kinnisvaraportaal-kv-ee.postimees.ee/?act=search.simple&company_id=&page=1&orderby=ob&page_size=50&deal_type=2&dt_select=2&county=1&parish=421&city%5B%5D=13244&price_min=100&price_max=350&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=20&area_max=&floor_min=&floor_max=&keyword=",
+		"selector": ".object-type-apartment",
+		"subSelector": ".object-title-a",
+		"sendMails": false,
+		"to": "kardoj@gmail.com",
+		"from": "KV-mailer@kardo.xyz",
+		"subject": "Uus üüripind Põhja-Tallinnas",
+		"dataFile": "pt.txt"
+	},
+	{
+		"url": "http://kinnisvaraportaal-kv-ee.postimees.ee/?act=search.simple&company_id=&page=1&orderby=ob&page_size=50&deal_type=2&dt_select=2&county=1&parish=421&city%5B%5D=400&price_min=150&price_max=350&price_type=1&rooms_min=&rooms_max=&nr_of_people=&area_min=20&area_max=&floor_min=&floor_max=&keyword=",
+		"selector": ".object-type-apartment",
+		"subSelector": ".object-title-a",
+		"sendMails": false,
+		"to": "kardoj@gmail.com",
+		"from": "KV-mailer@kardo.xyz",
+		"subject": "Uus üüripind Vanalinnas",
+		"dataFile": "vl.txt"
+	}
+]
