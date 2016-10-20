@@ -7,5 +7,5 @@
 	"sendMails": false,
 	"to": "kardoj@gmail.com",
 	"from": "KV-mailer@kardo.xyz",
-	"dataFile": "kve.txt"
+	"dataFile": "kv.txt"
 }
