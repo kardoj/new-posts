@@ -6,31 +6,37 @@ package xyz.kardo;
 import java.util.ArrayList;
 
 public class Main implements Runnable {
-	public final Config CONFIG;
-	private boolean running = true;
-	private Mailer mailer;
-	private ResultFilter resultFilter;
-	private Crawler crawler;
+	public final ArrayList<Site> sites;
+	private int timeout = 300000;
 	
-	public Main(String configPath) {
-		CONFIG = FileIO.readConfig(configPath);
-		mailer = new Mailer(CONFIG);
-		resultFilter = new ResultFilter(CONFIG.dataFile);
-		crawler = new Crawler(CONFIG);
-	}
-	
-	@Override
-	public void run(){
-		while (running) {
-			ArrayList<String> newLinks = resultFilter.filter(crawler.crawl());
-			if (CONFIG.sendMails) mailer.sendEmails(newLinks);			
-			try { Thread.sleep(CONFIG.interval); }
-			catch (InterruptedException e) { e.printStackTrace(); }
+	public Main(String configsPath) {
+		SiteConfig[] configs = FileIO.readSiteConfigs(configsPath);
+		sites = new ArrayList<Site>();
+		for (SiteConfig config : configs) {
+			sites.add(new Site(config));
 		}
 	}
 
 	public static void main(String[] args) {
-		String configPath = "config.json";
-		new Main(configPath).run();
+		String configsPath = "configs.json";
+		new Main(configsPath).run();
+	}
+
+	@Override
+	public void run() {
+		while(true) {
+			for (Site site : sites) {
+				site.check();
+				waitRandomTime(1000, 10000);
+			}
+			try { Thread.sleep(timeout); }
+			catch (InterruptedException e) { e.printStackTrace(); }
+		}
+	}
+	
+	private void waitRandomTime(int min, int max) {
+		int random = (int) (Math.random() * max) + min;
+		try { Thread.sleep(random); }
+		catch (InterruptedException e) { e.printStackTrace(); }
 	}
 }

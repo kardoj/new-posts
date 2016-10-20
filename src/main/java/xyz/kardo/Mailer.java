@@ -18,10 +18,10 @@ public class Mailer {
 	private String from;
 	private String subject;
 	
-	public Mailer(Config CONFIG) {
-		this.to = CONFIG.to;
-		this.from = CONFIG.from;
-		this.subject = CONFIG.subject;
+	public Mailer(String to, String from, String subject) {
+		this.to = to;
+		this.from = from;
+		this.subject = subject;
 	}	
 	
 	public void sendEmails(ArrayList<String> newLinks) {

@@ -5,6 +5,7 @@ saadaks need e-mailiga soovitud aadressile.
 ## Nõuded
 * Veebiserver java võimalusega
 * Mailiserver (nt. Postfix)
+* data kaust koos kõikide *site'ides* mainitud failidega ja kirjutamisõigused neile
 
 ## TODO, mõtted
 * Turvaline faili kirjutamine
@@ -13,3 +14,5 @@ saadaks need e-mailiga soovitud aadressile.
 * Andmefaili loomine, kui seda pole veel olemas
 * CONFIG paremini implementeerida (mitte klassidesse edasi passida, vaid global)
 * Testid
+* Host protsess paremini läbi mõelda
+* Lingi lõpu (mis iganes osa) lõikamine üldistada

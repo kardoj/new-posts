@@ -52,16 +52,16 @@ public class FileIO {
 		return lines;
 	}
 	
-	public static Config readConfig(String configPath) {
+	public static SiteConfig[] readSiteConfigs(String configsPath) {
 		JsonReader reader;
-		Config config = null;
+		SiteConfig[] siteConfigs = null;
 		try {
-			reader = new JsonReader(new FileReader(configPath));
+			reader = new JsonReader(new FileReader(configsPath));
 			Gson gson = new Gson();
-			config = gson.fromJson(reader, Config.class);
+			siteConfigs = gson.fromJson(reader, SiteConfig[].class);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return config;
+		return siteConfigs;
 	}
 }

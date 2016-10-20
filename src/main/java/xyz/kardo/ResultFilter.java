@@ -17,7 +17,7 @@ public class ResultFilter {
 		ArrayList<String> newResults = new ArrayList<String>();
 		List<String> lines = fileIO.getAllLines();
 		for (String result: allResults) {
-			if (!lines.contains(result)) newResults.add(result);
+			if (!lines.contains(result) && !result.equals("")) newResults.add(result);
 		}		
 		return newResults;
 	}

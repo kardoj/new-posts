@@ -16,10 +16,10 @@ public class Crawler {
 	private String postContainerSelector;
 	private String subSelector; // What will be written and sent to the specified e-mail
 	
-	public Crawler(Config CONFIG) {
-		this.url = CONFIG.url;
-		this.postContainerSelector = CONFIG.selector;
-		this.subSelector = CONFIG.subSelector;
+	public Crawler(String url, String selector, String subSelector) {
+		this.url = url;
+		this.postContainerSelector = selector;
+		this.subSelector = subSelector;
 	}
 	
 	public ArrayList<String> crawl() {
